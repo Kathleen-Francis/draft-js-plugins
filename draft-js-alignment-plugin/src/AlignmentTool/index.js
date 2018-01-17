@@ -2,9 +2,7 @@
 import React from 'react';
 import {
   AlignBlockDefaultButton,
-  AlignBlockLeftButton,
   AlignBlockCenterButton,
-  AlignBlockRightButton,
 } from 'draft-js-buttons';
 import styles from '../alignmentToolStyles.css';
 import buttonStyles from '../buttonStyles.css';
@@ -73,9 +71,7 @@ export default class AlignmentTool extends React.Component {
   render() {
     const defaultButtons = [
       AlignBlockDefaultButton,
-      AlignBlockLeftButton,
       AlignBlockCenterButton,
-      AlignBlockRightButton,
     ];
     return (
       <div
@@ -85,7 +81,6 @@ export default class AlignmentTool extends React.Component {
       >
         {defaultButtons.map((Button, index) => (
           <Button
-            /* the index can be used here as the buttons list won't change */
             key={index}
             alignment={this.state.alignment}
             setAlignment={this.props.store.getItem('setAlignment')}
