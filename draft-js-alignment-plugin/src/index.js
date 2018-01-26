@@ -37,6 +37,8 @@ export default (config) => {
         props: {
           alignment: alignmentData.alignment || 'default',
           setAlignment: createSetAlignment(contentBlock, { getEditorState, setEditorState }),
+          width: alignmentData.width || 50,
+          setWidth: createSetAlignment(contentBlock, { getEditorState, setEditorState }),
         },
       };
     },

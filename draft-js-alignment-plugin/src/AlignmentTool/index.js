@@ -25,16 +25,19 @@ export default class AlignmentTool extends React.Component {
   state = {
     position: {},
     alignment: null,
+    width: 50,
   }
 
   componentWillMount() {
     this.props.store.subscribeToItem('visibleBlock', this.onVisibilityChanged);
     this.props.store.subscribeToItem('alignment', this.onAlignmentChange);
+    this.props.store.subscribeToItem('width', this.onWidthChange);
   }
 
   componentWillUnmount() {
     this.props.store.unsubscribeFromItem('visibleBlock', this.onVisibilityChanged);
     this.props.store.unsubscribeFromItem('alignment', this.onAlignmentChange);
+    this.props.store.unsubscribeFromItem('width', this.onWidthChange);
   }
 
   onVisibilityChanged = (visibleBlock) => {
@@ -55,9 +58,11 @@ export default class AlignmentTool extends React.Component {
         position = { transform: 'translate(-50%) scale(0)' };
       }
       const alignment = this.props.store.getItem('alignment') || 'default';
+      const width = this.props.store.getItem('width') || 50;
       this.setState({
         alignment,
         position,
+        width,
       });
     }, 0);
   }
@@ -66,6 +71,17 @@ export default class AlignmentTool extends React.Component {
     this.setState({
       alignment,
     });
+  }
+
+  onWidthChange = (width) => {
+    this.setState({
+      width,
+    });
+  }
+
+  onSliderChange = (event) => {
+    event.preventDefault();
+    this.props.store.getItem('setWidth')({ width: event.target.value });
   }
 
   render() {
@@ -87,6 +103,13 @@ export default class AlignmentTool extends React.Component {
             theme={buttonStyles}
           />
         ))}
+        <label htmlFor="widthInput">Width:</label>
+        <input
+          id="widthInput"
+          type="range" min="0"
+          max="100"
+          onChange={this.onSliderChange}
+        />
       </div>
     );
   }
